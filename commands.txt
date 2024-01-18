@@ -1,2 +1,7 @@
 -- create new resource
 nest g res quotation --no-spec
+
+
+//docker
+
+docker-compose up -d

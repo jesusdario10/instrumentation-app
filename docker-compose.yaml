@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  dbinstrumentation:
+    image: mongo:6.0.12
+    restart: always
+    ports:
+      - 27018:27017
+    environment:
+      MONGODB_DATABASE: sici
+    volumes:
+      - ./mongodb_data:/data/db
+volumes:
+  mongodb_data:
+
