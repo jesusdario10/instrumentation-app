@@ -5,7 +5,7 @@ import { UpdateSolutionDto } from './dto/update-solution.dto';
 @Injectable()
 export class SolutionsService {
   create(createSolutionDto: CreateSolutionDto) {
-    return 'This action adds a new solution';
+    return createSolutionDto;
   }
 
   findAll() {
