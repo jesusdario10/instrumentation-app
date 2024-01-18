@@ -1,0 +1,2 @@
+-- create new resource
+nest g res quotation --no-spec
