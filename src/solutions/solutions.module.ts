@@ -13,6 +13,7 @@ import { Solution, SolutionSchema } from './entities/solution.entity';
       },
     ]),
   ],
+  exports: [MongooseModule],
   controllers: [SolutionsController],
   providers: [SolutionsService],
 })
