@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
+import { Model } from 'mongoose';
+import { Solution } from './entities/solution.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class SolutionsService {
-  create(createSolutionDto: CreateSolutionDto) {
-    return createSolutionDto;
+  constructor(
+    @InjectModel(Solution.name)
+    private readonly solutionModel: Model<Solution>,
+  ) {}
+
+  async create(createSolutionDto: CreateSolutionDto) {
+    try {
+      const solution = await this.solutionModel.create(createSolutionDto);
+      return solution;
+    } catch (error) {
+      if (error.code === 11000)
+        throw new BadRequestException(`Data is ready exist`);
+      else
+        throw new InternalServerErrorException(
+          `Can't create field - Check logs`,
+        );
+    }
   }
 
   findAll() {
     return `This action returns all solutions`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} solution`;
+  async byId(id: string) {
+    const solution = await this.solutionModel.findById(id);
+    if (!solution) throw new NotFoundException(`Data not found`);
+    return solution;
   }
 
-  update(id: number, updateSolutionDto: UpdateSolutionDto) {
-    return `This action updates a #${id} solution`;
+  async byType(type: string) {
+    const solutions = await this.solutionModel.find({ type });
+    if (!solutions) throw new NotFoundException(`Data not found`);
+    return solutions;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} solution`;
+  async update(id: string, updateSolutionDto: UpdateSolutionDto) {
+    const updatedSolution = await this.solutionModel.findByIdAndUpdate(
+      id,
+      updateSolutionDto,
+      { new: true },
+    );
+
+    if (!updatedSolution) {
+      throw new NotFoundException(`Solution with ID ${id} not found`);
+    }
+    return updatedSolution;
+  }
+
+  async remove(id: string) {
+    const solution = await this.byId(id);
+
+    await this.solutionModel.deleteOne({ _id: solution._id });
+
+    return { message: `Solution with ID ${id} has been removed` };
   }
 }

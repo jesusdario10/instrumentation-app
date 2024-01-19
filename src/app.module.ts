@@ -4,6 +4,7 @@ import { join } from 'path';
 import { QuotationModule } from './quotation/quotation.module';
 import { SolutionsModule } from './solutions/solutions.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forRoot('mongodb://localhost:27018/sici'),
     QuotationModule,
     SolutionsModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],

@@ -9,7 +9,7 @@ export class Solution extends Document {
     enum: SolutionType,
   })
   type: string;
-  @Prop({ type: String })
+  @Prop({ type: String, unique: true })
   scope: string;
   @Prop({ type: String })
   notes: string;
@@ -32,6 +32,10 @@ export class Solution extends Document {
     min: 0,
   })
   totalHours: number;
+  @Prop({
+    type: Number,
+    min: 1,
+  })
   unitValue: number;
 }
 
