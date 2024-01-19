@@ -31,6 +31,9 @@ here should be the url of repository
 $ yarn install or npm run install
 ```
 
+## environment
+- use .env.example and rename by .env for charge the environment
+
 ## Running the app
 
 ```bash
