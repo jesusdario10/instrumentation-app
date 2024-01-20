@@ -2,7 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { SolutionType } from '../../const/const';
 
-@Schema()
+@Schema({
+  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+})
 export class Solution extends Document {
   @Prop({
     type: String,

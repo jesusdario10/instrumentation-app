@@ -20,26 +20,21 @@ export class QuotationController {
     return this.quotationService.create(createQuotationDto);
   }
 
-  @Get()
-  findAll() {
-    return this.quotationService.findAll();
+  @Get(':consecutive')
+  findOne(@Param('consecutive') consecutive: string) {
+    return this.quotationService.findOne(consecutive);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.quotationService.findOne(+id);
-  }
-
-  @Patch(':id')
+  @Patch(':consecutive')
   update(
-    @Param('id') id: string,
+    @Param('consecutive') consecutive: string,
     @Body() updateQuotationDto: UpdateQuotationDto,
   ) {
-    return this.quotationService.update(+id, updateQuotationDto);
+    return this.quotationService.update(consecutive, updateQuotationDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.quotationService.remove(+id);
+  @Delete(':consecutive')
+  remove(@Param('consecutive') consecutive: string) {
+    return this.quotationService.remove(consecutive);
   }
 }
