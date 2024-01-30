@@ -9,6 +9,7 @@ import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchema } from './config/joi.validation';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { JoiValidationSchema } from './config/joi.validation';
     SolutionsModule,
     CommonModule,
     SeedModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
