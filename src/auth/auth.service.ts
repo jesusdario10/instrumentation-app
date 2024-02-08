@@ -43,7 +43,6 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    console.log(loginDto);
     const { email, password } = loginDto;
     const user = await this.userModel.findOne({ email });
     if (!user) throw new UnauthorizedException('Not valid credentials');
