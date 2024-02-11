@@ -5,39 +5,63 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateQuotationDto } from './dto/create-quotation.dto';
+import { CreateDataByQuotationDto } from './dto/create-data-by-quotation.dto';
+
 import { UpdateQuotationDto } from './dto/update-quotation.dto';
-import { Quotation } from './entities/quotation.entity';
+import { Quotation, ServiceQuotation } from './entities/quotation.entity';
+import { Solution } from '../solutions/entities/solution.entity';
 
 @Injectable()
 export class QuotationService {
   constructor(
     @InjectModel(Quotation.name) private quotationModel: Model<Quotation>,
+    @InjectModel(Solution.name) private solutionModel: Model<Solution>,
   ) {}
 
-  async create(createQuotationDto: CreateQuotationDto): Promise<Quotation> {
+  async create(
+    createDataByQuotationDto: CreateDataByQuotationDto,
+  ): Promise<any> {
     const lastQuotation = await this.quotationModel
       .findOne()
       .sort({ consecutive: -1 })
       .limit(1)
       .exec();
-
     const consecutive = lastQuotation ? lastQuotation.consecutive + 1 : 1;
 
-    const totalPrice = createQuotationDto.services.reduce(
-      (total, service) => total + service.units * service.price,
-      0,
-    );
-    const totalTime = createQuotationDto.services.reduce(
-      (total, service) => total + service.units * service.hours,
-      0,
-    );
+    let totalPrice = 0;
+    let totalTime = 0;
+
+    const solutions: ServiceQuotation[] = [];
+
+    for (const service of createDataByQuotationDto.services) {
+      const solution = await this.solutionModel.findById(service._id).exec();
+      if (!solution) {
+        throw new NotFoundException(
+          `Solution with ID ${service._id} not found`,
+        );
+      }
+
+      solutions.push({
+        type: solution.type,
+        scope: solution.scope,
+        notes: solution.notes,
+        hours: solution.totalHours,
+        price: solution.unitValue,
+        units: service.inputValue,
+      });
+      totalPrice += service.inputValue * solution.unitValue;
+      totalTime += service.inputValue * solution.totalHours;
+    }
 
     const createdQuotation = new this.quotationModel({
-      ...createQuotationDto,
+      nit: createDataByQuotationDto.nit,
+      legalName: createDataByQuotationDto.legalName,
+      phoneNumber: createDataByQuotationDto.phoneNumber,
+      email: createDataByQuotationDto.email,
       consecutive,
       totalPrice,
       executionTime: totalTime,
+      services: solutions,
     });
 
     try {

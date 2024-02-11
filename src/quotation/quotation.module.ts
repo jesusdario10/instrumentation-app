@@ -3,6 +3,7 @@ import { QuotationService } from './quotation.service';
 import { QuotationController } from './quotation.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Quotation, QuotationSchema } from './entities/quotation.entity';
+import { SolutionsModule } from '../solutions/solutions.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Quotation, QuotationSchema } from './entities/quotation.entity';
         schema: QuotationSchema,
       },
     ]),
+    SolutionsModule,
   ],
   controllers: [QuotationController],
   providers: [QuotationService],
