@@ -3,4 +3,8 @@ export const EnvConfiguration = () => ({
   mongodb: process.env.MONGODB,
   port: process.env.PORT || 3002,
   seed: process.env.SEED,
+  hostsmtp: process.env.HOSTSMTP,
+  portsmtp: process.env.PORTSMTP,
+  usersmtp: process.env.USERSMTP,
+  passwordsmtp: process.env.PASSWORDSMTP,
 });

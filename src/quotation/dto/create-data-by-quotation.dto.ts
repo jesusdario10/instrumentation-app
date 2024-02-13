@@ -1,21 +1,13 @@
-import {
-  IsString,
-  IsNumber,
-  IsEmail,
-  IsArray,
-  ValidateNested,
-  IsEnum,
-} from 'class-validator';
+import { IsString, IsEmail, IsArray, ValidateNested } from 'class-validator';
 import { ServiceItemDto } from './service-item-dto';
 import { Type } from 'class-transformer';
-import { SolutionType } from '../../const/const';
 
 export class CreateDataByQuotationDto {
-  @IsEnum(SolutionType)
+  @IsString()
   type: string;
 
-  @IsNumber()
-  nit: number;
+  @IsString()
+  nit: string;
 
   @IsString()
   legalName: string;

@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 import { QuotationModule } from './quotation/quotation.module';
 import { SolutionsModule } from './solutions/solutions.module';
@@ -23,6 +24,17 @@ import { JoiValidationSchema } from './config/joi.validation';
       rootPath: join(__dirname, '..', 'public'),
     }),
     MongooseModule.forRoot(process.env.MONGODB),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.HOSTSMTP,
+        port: process.env.PORTSMTP,
+        secure: false,
+        auth: {
+          user: process.env.USERSMTP,
+          pass: process.env.PASSWORDSMTP,
+        },
+      },
+    }),
     QuotationModule,
     SolutionsModule,
     CommonModule,
