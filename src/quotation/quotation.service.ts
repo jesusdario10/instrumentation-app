@@ -87,7 +87,7 @@ export class QuotationService {
     for (const service of quotation.services) {
       servicesRows += `
         <tr style="border-bottom: 0.5px solid white !important;">
-          <td style="text-align: justify; color:white; border-bottom: 0.5px solid white;">${service.scope}</td>
+          <td style="text-align: justify; color:white; border-bottom: 0.5px solid white;">Alcance mantenimiento ${service.scope} <br> Notes: ${service.notes}</td>
           <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">${service.units}</td>
           <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">$${service.price.toLocaleString()}</td>
         </tr>
@@ -105,20 +105,20 @@ export class QuotationService {
       <html>
         <head>
           <style>
-            .contenedor {
+            .container {
               background: #7283a7;
               width: 600px;
               min-height: 600px;   
               margin: 0px !important;
-              padding:0px !important;
+              padding:1rem !important;
               font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
             }
-            .contenido1 {
+            .content {
               color: white;
               text-align: center;
               padding-top: 10px;
             }
-            .numero {
+            .consecutive {
               font-size: 2rem;
               background: red;
               width: 100px;
@@ -127,7 +127,6 @@ export class QuotationService {
               color: white;
               margin-left: 41px;
             }
-            /* Más estilos ... */
             table {
               width: 100%;
               margin-left: auto;
@@ -136,24 +135,46 @@ export class QuotationService {
             th, td {
               text-align: left;
               padding: 8px;
+              color: white;
+            }
+            .text-center {
+              text-align: center !important;
             }
             .footer {
-              text-align: center;
               color: white;
-              padding-top: 50px;
+              padding-top: 20px;
             }
+            .totalValueText, .executionTime {
+              font-size: 28.8px;
+              font-family: bold;
+              text-align: right;
+            }
+            .executionTime{
+              text-align: left;
+              font-size: 20.8px;
+            }
+            .totalValue {
+              margin-left: 10px;
+              border: 2px solid red;
+              padding: 10px;
+              display: inline;
+              border-radius: 15px;
+              color: white;
+            }
+          
           </style>
         </head>
         <body>
-          <div class="contenedor">
+          <div class="container">
             <img src="cid:header" style="width: 100%; height: auto;" />
-            <div class="contenido1">
-              <h1>SU NÚMERO DE COTIZACIÓN ES: ${quotation.consecutive}</h1>
+            <div class="content">
+              <h1>SU NÚMERO DE COTIZACIÓN ES: </h1>
+              <p class="consecutive">0${quotation.consecutive}</p>
             </div>
             <table>
               <thead>
                 <tr>
-                  <th>Descripción</th>
+                  <th class="text-center">Descripción</th>
                   <th>Unidad</th>
                   <th>V/Unitario</th>
                 </tr>
@@ -163,10 +184,10 @@ export class QuotationService {
               </tbody>
             </table>
             <div class="footer">
-              <p>VALOR TOTAL: ${totalFormatted}</p>
-              <p>TIEMPO DE EJECUCIÓN: ${totalTimeFormatted} horas</p>
+              <p class="totalValueText">VALOR TOTAL: <span class="totalValue">${totalFormatted}</span></p>
+              <p class="executionTime">TIEMPO DE EJECUCIÓN: ${totalTimeFormatted} horas</p>
               <p>Para autorizar su pedido envíe su aprobación a: presupuesto@cdisa.co</p>
-              <h2>¡Gracias por confiar en nosotros!</h2>
+              <h2 class="text-center">¡Gracias por confiar en nosotros!</h2>
             </div>
           </div>   
         </body>
