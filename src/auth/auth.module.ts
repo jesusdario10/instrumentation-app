@@ -29,5 +29,6 @@ import { JoiValidationSchema } from '../config/joi.validation';
   ],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

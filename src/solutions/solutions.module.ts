@@ -3,6 +3,7 @@ import { SolutionsService } from './solutions.service';
 import { SolutionsController } from './solutions.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Solution, SolutionSchema } from './entities/solution.entity';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -12,9 +13,10 @@ import { Solution, SolutionSchema } from './entities/solution.entity';
         schema: SolutionSchema,
       },
     ]),
+    AuthModule,
   ],
-  exports: [MongooseModule, SolutionsModule],
   controllers: [SolutionsController],
   providers: [SolutionsService],
+  exports: [MongooseModule, SolutionsModule],
 })
 export class SolutionsModule {}

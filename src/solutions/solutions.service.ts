@@ -42,7 +42,18 @@ export class SolutionsService {
   }
 
   async byType(type: string) {
-    const solutions = await this.solutionModel.find({ type });
+    const solutions = await this.solutionModel
+      .find({ type })
+      .sort({ order: 1 })
+      .exec();
+    if (!solutions || solutions.length === 0) {
+      throw new NotFoundException(`Data not found`);
+    }
+    return solutions;
+  }
+
+  async byKind(kind: string) {
+    const solutions = await this.solutionModel.find({ kind });
     if (!solutions) throw new NotFoundException(`Data not found`);
     return solutions;
   }
@@ -66,5 +77,52 @@ export class SolutionsService {
     await this.solutionModel.deleteOne({ _id: solution._id });
 
     return { message: `Solution with ID ${id} has been removed` };
+  }
+
+  async groupTypes(kind: string): Promise<string[]> {
+    try {
+      const distinctTypes = await this.getDistinctTypes(kind);
+      return this.formatDistinctTypes(distinctTypes);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error while fetching and formatting distinct types',
+      );
+    }
+  }
+
+  private async getDistinctTypes(kind: string): Promise<{ type: string }[]> {
+    const distinctTypes = await this.solutionModel.aggregate([
+      { $match: { kind } },
+      { $group: { _id: '$type' } },
+      { $project: { _id: 0, type: '$_id' } },
+    ]);
+    return distinctTypes;
+  }
+
+  private formatDistinctTypes(distinctTypes: { type: string }[]): string[] {
+    return distinctTypes.map(({ type }) => type);
+  }
+
+  async getDistinctKinds(): Promise<string[]> {
+    try {
+      const distinctKinds = await this.getDistinctKindsFromDB();
+      return this.formatDistinctKinds(distinctKinds);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error while fetching and formatting distinct kinds',
+      );
+    }
+  }
+
+  private async getDistinctKindsFromDB(): Promise<{ kind: string }[]> {
+    const distinctKinds = await this.solutionModel.aggregate([
+      { $group: { _id: '$kind' } },
+      { $project: { _id: 0, kind: '$_id' } },
+    ]);
+    return distinctKinds;
+  }
+
+  private formatDistinctKinds(distinctKinds: { kind: string }[]): string[] {
+    return distinctKinds.map(({ kind }) => kind);
   }
 }

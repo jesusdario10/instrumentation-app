@@ -1,8 +1,7 @@
-import { IsString, IsEnum, IsInt, IsNumber, Min } from 'class-validator';
-import { SolutionType } from '../../const/const';
+import { IsString, IsInt, IsNumber, Min } from 'class-validator';
 
 export class CreateSolutionDto {
-  @IsEnum(SolutionType)
+  @IsString()
   type: string;
 
   @IsString()
@@ -10,6 +9,9 @@ export class CreateSolutionDto {
 
   @IsString()
   notes: string;
+
+  @IsString()
+  kind: string;
 
   @IsInt()
   @Min(1)

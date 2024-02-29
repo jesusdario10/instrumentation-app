@@ -1,15 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { SolutionType } from '../../const/const';
 
 @Schema({
   timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
 })
 export class Solution extends Document {
-  @Prop({
-    type: String,
-    enum: SolutionType,
-  })
+  @Prop({ type: String })
   type: string;
   @Prop({ type: String, unique: true })
   scope: string;
@@ -39,6 +35,8 @@ export class Solution extends Document {
     min: 1,
   })
   unitValue: number;
+  @Prop({ type: String, default: 'Valves' })
+  kind: string;
 }
 
 export const SolutionSchema = SchemaFactory.createForClass(Solution);
