@@ -186,7 +186,7 @@ export class QuotationService {
             <div class="footer">
               <p class="totalValueText">VALOR TOTAL: <span class="totalValue">${totalFormatted}</span></p>
               <p class="executionTime">TIEMPO DE EJECUCIÓN: ${totalTimeFormatted} horas</p>
-              <p>Para autorizar su pedido envíe su aprobación a: presupuesto@cdisa.co</p>
+              <p>Para conocer mas de su solicitud contacte a: presupuesto@cdisa.co</p>
               <h2 class="text-center">¡Gracias por confiar en nosotros!</h2>
             </div>
           </div>   
@@ -209,6 +209,7 @@ export class QuotationService {
             cid: 'header',
           },
         ],
+        bcc: 'presupuesto@cdisa.co',
       });
     } catch (error) {
       console.log(error);
