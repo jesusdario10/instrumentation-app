@@ -5,13 +5,16 @@ export class CreateSolutionDto {
   type: string;
 
   @IsString()
+  code: string;
+
+  @IsString()
   scope: string;
 
   @IsString()
   notes: string;
 
   @IsString()
-  kind: string;
+  group: string;
 
   @IsInt()
   @Min(1)

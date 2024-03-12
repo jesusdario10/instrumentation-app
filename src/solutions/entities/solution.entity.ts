@@ -7,6 +7,8 @@ import { Document } from 'mongoose';
 export class Solution extends Document {
   @Prop({ type: String })
   type: string;
+  @Prop({ type: String })
+  code: string; //rating or another code of solutions
   @Prop({ type: String, unique: true })
   scope: string;
   @Prop({ type: String })
@@ -36,7 +38,7 @@ export class Solution extends Document {
   })
   unitValue: number;
   @Prop({ type: String, default: 'Valves' })
-  kind: string;
+  group: string;
 }
 
 export const SolutionSchema = SchemaFactory.createForClass(Solution);

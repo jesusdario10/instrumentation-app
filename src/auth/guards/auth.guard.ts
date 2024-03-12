@@ -18,7 +18,6 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    console.log(token);
 
     if (!token) {
       throw new UnauthorizedException();
@@ -29,10 +28,7 @@ export class AuthGuard implements CanActivate {
         secret: process.env.SEED,
       });
 
-      console.log('+++++', payload);
-
       const user = await this.authService.findById(payload.id);
-      console.log(user);
       if (!user) throw new UnauthorizedException();
       if (!user.isActive) throw new UnauthorizedException();
 

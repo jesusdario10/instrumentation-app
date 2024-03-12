@@ -26,26 +26,6 @@ export class SolutionsController {
     return this.solutionsService.create(createSolutionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.solutionsService.findAll();
-  }
-
-  @Get(':id')
-  byId(@Param('id') id: string) {
-    return this.solutionsService.byId(id);
-  }
-
-  @Get('by-type/:type')
-  async byType(@Param('type') type: string) {
-    return await this.solutionsService.byType(type);
-  }
-
-  @Get('by-kind/:kind')
-  async byKind(@Param('kind') kind: string) {
-    return await this.solutionsService.byKind(kind);
-  }
-
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -60,14 +40,39 @@ export class SolutionsController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('group/type/:kind')
-  async groupType(@Param('kind') kind: string) {
-    return await this.solutionsService.groupTypes(kind);
+  @Get('by-group')
+  async byGroup() {
+    return await this.solutionsService.getDistinctGroups();
   }
 
-  @UseGuards(AuthGuard)
-  @Get('group/kind')
-  async groupKind() {
-    return await this.solutionsService.getDistinctKinds();
+  @Get('types/:group')
+  async distinctTypesByGroup(@Param('group') group: string) {
+    return await this.solutionsService.getDistinctTypesByGroup(group);
+  }
+
+  @Get('codes/:group/:type')
+  async getCodesByGroupAndType(
+    @Param('group') group: string,
+    @Param('type') type: string,
+  ) {
+    return await this.solutionsService.getCodesByGroupAndType(group, type);
+  }
+
+  @Get('codes/:group/:type/:code')
+  async getSolutionsByGroupTypeAndCode(
+    @Param('group') group: string,
+    @Param('type') type: string,
+    @Param('code') code: string,
+  ) {
+    return await this.solutionsService.getSolutionsByGroupTypeAndCode(
+      group,
+      type,
+      code,
+    );
+  }
+
+  @Get(':id')
+  byId(@Param('id') id: string) {
+    return this.solutionsService.byId(id);
   }
 }

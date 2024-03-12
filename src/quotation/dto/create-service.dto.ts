@@ -1,9 +1,8 @@
-import { IsEnum, IsNumber, IsString, Min } from 'class-validator';
-import { SolutionType } from '../../const/const';
+import { IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateServiceDto {
-  @IsEnum(SolutionType)
-  type: SolutionType;
+  @IsString()
+  type: string;
 
   @IsString()
   scope: string;

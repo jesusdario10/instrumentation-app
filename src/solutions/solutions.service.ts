@@ -31,31 +31,10 @@ export class SolutionsService {
     }
   }
 
-  findAll() {
-    return `This action returns all solutions`;
-  }
-
   async byId(id: string) {
     const solution = await this.solutionModel.findById(id);
     if (!solution) throw new NotFoundException(`Data not found`);
     return solution;
-  }
-
-  async byType(type: string) {
-    const solutions = await this.solutionModel
-      .find({ type })
-      .sort({ order: 1 })
-      .exec();
-    if (!solutions || solutions.length === 0) {
-      throw new NotFoundException(`Data not found`);
-    }
-    return solutions;
-  }
-
-  async byKind(kind: string) {
-    const solutions = await this.solutionModel.find({ kind });
-    if (!solutions) throw new NotFoundException(`Data not found`);
-    return solutions;
   }
 
   async update(id: string, updateSolutionDto: UpdateSolutionDto) {
@@ -79,50 +58,104 @@ export class SolutionsService {
     return { message: `Solution with ID ${id} has been removed` };
   }
 
-  async groupTypes(kind: string): Promise<string[]> {
-    try {
-      const distinctTypes = await this.getDistinctTypes(kind);
-      return this.formatDistinctTypes(distinctTypes);
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'Error while fetching and formatting distinct types',
-      );
-    }
-  }
-
-  private async getDistinctTypes(kind: string): Promise<{ type: string }[]> {
-    const distinctTypes = await this.solutionModel.aggregate([
-      { $match: { kind } },
-      { $group: { _id: '$type' } },
-      { $project: { _id: 0, type: '$_id' } },
-    ]);
-    return distinctTypes;
-  }
-
   private formatDistinctTypes(distinctTypes: { type: string }[]): string[] {
     return distinctTypes.map(({ type }) => type);
   }
 
-  async getDistinctKinds(): Promise<string[]> {
+  async getDistinctGroups(): Promise<string[]> {
     try {
-      const distinctKinds = await this.getDistinctKindsFromDB();
-      return this.formatDistinctKinds(distinctKinds);
+      const distinctGroups = await this.getDistinctGroupsFromDB();
+      return this.formatDistinctGroups(distinctGroups);
     } catch (error) {
       throw new InternalServerErrorException(
-        'Error while fetching and formatting distinct kinds',
+        'Error while fetching and formatting distinct groups',
       );
     }
   }
 
-  private async getDistinctKindsFromDB(): Promise<{ kind: string }[]> {
-    const distinctKinds = await this.solutionModel.aggregate([
-      { $group: { _id: '$kind' } },
-      { $project: { _id: 0, kind: '$_id' } },
-    ]);
-    return distinctKinds;
+  async getDistinctTypesByGroup(group: string): Promise<string[]> {
+    try {
+      const distinctTypes = await this.getDistinctTypesByGroupFromDB(group);
+      return this.formatDistinctTypes(distinctTypes);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error while fetching and formatting distinct types by group',
+      );
+    }
   }
 
-  private formatDistinctKinds(distinctKinds: { kind: string }[]): string[] {
-    return distinctKinds.map(({ kind }) => kind);
+  private async getCodesByGroupAndTypeFromDB(
+    group: string,
+    type: string,
+  ): Promise<string[]> {
+    const codes = await this.solutionModel
+      .find({ group, type })
+      .distinct('code')
+      .exec();
+    return codes;
+  }
+
+  async getCodesByGroupAndType(group: string, type: string): Promise<string[]> {
+    try {
+      const codes = await this.getCodesByGroupAndTypeFromDB(group, type);
+      return codes;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error while fetching codes by group and type',
+      );
+    }
+  }
+
+  private async getDistinctTypesByGroupFromDB(
+    group: string,
+  ): Promise<{ type: string }[]> {
+    const distinctTypes = await this.solutionModel
+      .find({ group })
+      .distinct('type')
+      .exec();
+    return distinctTypes.map((type) => ({ type }));
+  }
+
+  async getSolutionsByGroupTypeAndCode(
+    group: string,
+    type: string,
+    code: string,
+  ): Promise<Solution[]> {
+    try {
+      const solutions = await this.getSolutionsByGroupTypeAndCodeFromDB(
+        group,
+        type,
+        code,
+      );
+      return solutions;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error while fetching solutions by group, type, and code',
+      );
+    }
+  }
+
+  private async getSolutionsByGroupTypeAndCodeFromDB(
+    group: string,
+    type: string,
+    code: string,
+  ): Promise<Solution[]> {
+    const solutions = await this.solutionModel
+      .find({ group, type, code })
+      .sort({ order: 1 })
+      .exec();
+    return solutions;
+  }
+
+  private async getDistinctGroupsFromDB(): Promise<{ group: string }[]> {
+    const distinctGroups = await this.solutionModel.aggregate([
+      { $group: { _id: '$group' } },
+      { $project: { _id: 0, group: '$_id' } },
+    ]);
+    return distinctGroups;
+  }
+
+  private formatDistinctGroups(distinctGroups: { group: string }[]): string[] {
+    return distinctGroups.map(({ group }) => group);
   }
 }
