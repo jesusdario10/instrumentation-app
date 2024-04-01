@@ -13,9 +13,6 @@ export class ServiceQuotation {
   @Prop({ type: String })
   scope: string;
 
-  @Prop({ type: String })
-  notes: string;
-
   @Prop({ type: Number })
   hours: number;
 
@@ -24,6 +21,9 @@ export class ServiceQuotation {
 
   @Prop({ type: Number })
   price: number;
+
+  @Prop({ type: String })
+  notes?: string;
 }
 
 @Schema({

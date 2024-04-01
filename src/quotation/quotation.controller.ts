@@ -20,6 +20,11 @@ export class QuotationController {
     return this.quotationService.create(createDataByQuotationDto);
   }
 
+  @Post()
+  createLab(@Body() createDataByQuotationDto: CreateDataByQuotationDto) {
+    return this.quotationService.create(createDataByQuotationDto);
+  }
+
   @Get(':consecutive')
   findOne(@Param('consecutive') consecutive: string) {
     return this.quotationService.findOne(consecutive);

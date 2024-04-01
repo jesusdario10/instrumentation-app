@@ -4,6 +4,7 @@ import { QuotationController } from './quotation.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Quotation, QuotationSchema } from './entities/quotation.entity';
 import { SolutionsModule } from '../solutions/solutions.module';
+import { LaboratoryRecordsModule } from '../laboratory-records/laboratory-records.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SolutionsModule } from '../solutions/solutions.module';
       },
     ]),
     SolutionsModule,
+    LaboratoryRecordsModule,
   ],
   controllers: [QuotationController],
   providers: [QuotationService],

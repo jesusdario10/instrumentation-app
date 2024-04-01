@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchema } from './config/joi.validation';
+import { LaboratoryRecordsModule } from './laboratory-records/laboratory-records.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { JoiValidationSchema } from './config/joi.validation';
     CommonModule,
     SeedModule,
     AuthModule,
+    LaboratoryRecordsModule,
   ],
   controllers: [],
   providers: [],

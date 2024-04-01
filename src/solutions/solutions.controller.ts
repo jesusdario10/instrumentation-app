@@ -20,12 +20,13 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 export class SolutionsController {
   constructor(private readonly solutionsService: SolutionsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createSolutionDto: CreateSolutionDto) {
     return this.solutionsService.create(createSolutionDto);
   }
-
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -34,6 +35,7 @@ export class SolutionsController {
     return this.solutionsService.update(id, updateSolutionDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async remove(@Param('id', ParseMongoIdPipe) id: string) {
     return this.solutionsService.remove(id);

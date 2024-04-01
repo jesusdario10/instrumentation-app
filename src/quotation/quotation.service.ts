@@ -12,73 +12,27 @@ import { UpdateQuotationDto } from './dto/update-quotation.dto';
 import { Quotation, ServiceQuotation } from './entities/quotation.entity';
 import { Solution } from '../solutions/entities/solution.entity';
 import { join } from 'path';
+import { LaboratoryRecord } from '../laboratory-records/entities/laboratory-record.entity';
 
 @Injectable()
 export class QuotationService {
   constructor(
     @InjectModel(Quotation.name) private quotationModel: Model<Quotation>,
     @InjectModel(Solution.name) private solutionModel: Model<Solution>,
+    @InjectModel(LaboratoryRecord.name)
+    private laboratoryRegisterModel: Model<LaboratoryRecord>,
     private readonly mailerService: MailerService,
   ) {}
 
   async create(
     createDataByQuotationDto: CreateDataByQuotationDto,
   ): Promise<any> {
-    const lastQuotation = await this.quotationModel
-      .findOne()
-      .sort({ consecutive: -1 })
-      .limit(1)
-      .exec();
-    const consecutive = lastQuotation ? lastQuotation.consecutive + 1 : 1;
+    const { type } = createDataByQuotationDto;
 
-    let totalPrice = 0;
-    let totalTime = 0;
-
-    const solutions: ServiceQuotation[] = [];
-
-    for (const service of createDataByQuotationDto.services) {
-      const solution = await this.solutionModel.findById(service._id).exec();
-      if (!solution) {
-        throw new NotFoundException(
-          `Solution with ID ${service._id} not found`,
-        );
-      }
-
-      solutions.push({
-        type: solution.type,
-        scope: solution.scope,
-        notes: solution.notes,
-        hours: solution.totalHours,
-        price: solution.unitValue,
-        units: service.inputValue,
-      });
-      totalPrice += service.inputValue * solution.unitValue;
-      totalTime += service.inputValue * solution.totalHours;
-    }
-
-    const createdQuotation = new this.quotationModel({
-      nit: createDataByQuotationDto.nit,
-      legalName: createDataByQuotationDto.legalName,
-      phoneNumber: createDataByQuotationDto.phoneNumber,
-      email: createDataByQuotationDto.email,
-      consecutive,
-      totalPrice,
-      executionTime: totalTime,
-      services: solutions,
-    });
-
-    try {
-      const quotation = await createdQuotation.save();
-
-      await this.sendEmail(quotation);
-
-      return quotation;
-    } catch (error) {
-      if (error.code === 11000) {
-        throw new InternalServerErrorException('Consecutive is already exist');
-      } else {
-        throw error;
-      }
+    if (type === 'valves') {
+      return await this.createQuotationByValves(createDataByQuotationDto);
+    } else {
+      return await this.createQuotationByVaLaboratory(createDataByQuotationDto);
     }
   }
 
@@ -86,12 +40,14 @@ export class QuotationService {
     let servicesRows = '';
     for (const service of quotation.services) {
       servicesRows += `
-        <tr style="border-bottom: 0.5px solid white !important;">
-          <td style="text-align: justify; color:white; border-bottom: 0.5px solid white;">Alcance mantenimiento ${service.scope} <br> Notes: ${service.notes}</td>
-          <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">${service.units}</td>
-          <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">$${service.price.toLocaleString()}</td>
-        </tr>
-      `;
+      <tr style="border-bottom: 0.5px solid white !important;">
+        <td style="text-align: justify; color:white; border-bottom: 0.5px solid white;">
+          Alcance mantenimiento ${service.scope} ${service.notes ? `<br> Notes: ${service.notes}` : ''}
+        </td>
+        <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">${service.units}</td>
+        <td style="text-align: center; color:white; border-bottom: 0.5px solid white;">$${service.price.toLocaleString()}</td>
+      </tr>
+    `;
     }
 
     const totalFormatted = new Intl.NumberFormat('es-CO', {
@@ -259,5 +215,127 @@ export class QuotationService {
 
   private throwQuotationNotFoundException() {
     throw new NotFoundException('Quotation not found');
+  }
+
+  private async createQuotationByValves(
+    createDataByQuotationDto: CreateDataByQuotationDto,
+  ) {
+    const lastQuotation = await this.quotationModel
+      .findOne()
+      .sort({ consecutive: -1 })
+      .limit(1)
+      .exec();
+    const consecutive = lastQuotation ? lastQuotation.consecutive + 1 : 1;
+
+    let totalPrice = 0;
+    let totalTime = 0;
+
+    const solutions: ServiceQuotation[] = [];
+
+    for (const service of createDataByQuotationDto.services) {
+      const solution = await this.solutionModel.findById(service._id).exec();
+      if (!solution) {
+        throw new NotFoundException(
+          `Solution with ID ${service._id} not found`,
+        );
+      }
+
+      solutions.push({
+        type: solution.type,
+        scope: solution.scope,
+        notes: solution.notes,
+        hours: solution.totalHours,
+        price: solution.unitValue,
+        units: service.inputValue,
+      });
+      totalPrice += service.inputValue * solution.unitValue;
+      totalTime += service.inputValue * solution.totalHours;
+    }
+
+    const createdQuotation = new this.quotationModel({
+      nit: createDataByQuotationDto.nit,
+      legalName: createDataByQuotationDto.legalName,
+      phoneNumber: createDataByQuotationDto.phoneNumber,
+      email: createDataByQuotationDto.email,
+      consecutive,
+      totalPrice,
+      executionTime: totalTime,
+      services: solutions,
+    });
+
+    try {
+      const quotation = await createdQuotation.save();
+
+      await this.sendEmail(quotation);
+
+      return quotation;
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new InternalServerErrorException('Consecutive is already exist');
+      } else {
+        throw error;
+      }
+    }
+  }
+  private async createQuotationByVaLaboratory(
+    createDataByQuotationDto: CreateDataByQuotationDto,
+  ) {
+    const lastQuotation = await this.quotationModel
+      .findOne()
+      .sort({ consecutive: -1 })
+      .limit(1)
+      .exec();
+    const consecutive = lastQuotation ? lastQuotation.consecutive + 1 : 1;
+
+    let totalPrice = 0;
+    let totalTime = 0;
+
+    const solutions: ServiceQuotation[] = [];
+
+    for (const service of createDataByQuotationDto.services) {
+      const solution = await this.laboratoryRegisterModel
+        .findById(service._id)
+        .exec();
+      if (!solution) {
+        throw new NotFoundException(
+          `Solution with ID ${service._id} not found`,
+        );
+      }
+
+      solutions.push({
+        type: solution.type,
+        scope: solution.scope,
+        hours: solution.totalHours,
+        price: solution.unitValue,
+        units: service.inputValue,
+      });
+      totalPrice += service.inputValue * solution.unitValue;
+      totalTime += service.inputValue * solution.totalHours;
+    }
+
+    const createdQuotation = new this.quotationModel({
+      nit: createDataByQuotationDto.nit,
+      legalName: createDataByQuotationDto.legalName,
+      phoneNumber: createDataByQuotationDto.phoneNumber,
+      email: createDataByQuotationDto.email,
+      consecutive,
+      totalPrice,
+      executionTime: totalTime,
+      services: solutions,
+    });
+
+    try {
+      const quotation = await createdQuotation.save();
+
+      await this.sendEmail(quotation);
+
+      return quotation;
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new InternalServerErrorException('Consecutive is already exist');
+      } else {
+        throw error;
+      }
+    }
   }
 }
