@@ -9,4 +9,8 @@ export class SeedController {
   async executeSeed() {
     return this.seedService.executeSeed();
   }
+  @Get('lab')
+  async executeSeedLab() {
+    return this.seedService.executeSeedLab();
+  }
 }

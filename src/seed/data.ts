@@ -12,7 +12,7 @@ interface ServiceInterface {
 
 export const dataSeed: ServiceInterface[] = [
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 1/2" hasta 2-1/2"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -24,7 +24,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 3" hasta 6"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -36,7 +36,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 8" hasta 10"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -48,7 +48,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 12" hasta 14"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -60,7 +60,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 16" hasta 18"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -72,7 +72,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 20"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -84,7 +84,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 24"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -96,7 +96,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 30"  ANSI 150-300 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -108,7 +108,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 1/2" hasta 2-1/2"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -120,7 +120,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 3" hasta 4"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -132,7 +132,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 6" hasta 8"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -144,7 +144,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 10"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -156,7 +156,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 12"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -168,7 +168,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 14"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -180,7 +180,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 16"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -192,7 +192,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 18"  ANSI 600 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -204,7 +204,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 3"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -216,7 +216,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 4"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -228,7 +228,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 5"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -240,7 +240,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 6"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -252,7 +252,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 8"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -264,7 +264,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 10"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -276,7 +276,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 12"  ANSI 900 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -288,7 +288,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro desde 2" hasta 2-1/2"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -300,7 +300,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 3"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -312,7 +312,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 4"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -324,7 +324,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 5"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -336,7 +336,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 6"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -348,7 +348,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 8"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -360,7 +360,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 10"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
@@ -372,7 +372,7 @@ Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuer
     group: 'Valves',
   },
   {
-    type: 'Manuales',
+    type: 'Válvulas Manuales',
     scope: `a valvula manuales de: compuerta, globo, bola, tapón y retención (cheque) en diámetro de 12"  ANSI 1500 de acuerdo a la norma API-598.
 Desarme de válvula, limpieza de partes, de cuerpo e internos, pulido de compuerta, disco y/o asiento (lapeado si se requiere), cambio de empaques del bástago, cambio de junta cuerpo yugo/bonete, armado de válvula y pruebas de sello, certificación de pruebas, pintura total.`,
     notes: `1- No se incluye repuestos ni maquinado de partes.`,
