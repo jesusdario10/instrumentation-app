@@ -30,4 +30,7 @@ export class CreateSolutionDto {
 
   @IsNumber()
   unitValue: number;
+
+  @IsString()
+  control: string = '';
 }

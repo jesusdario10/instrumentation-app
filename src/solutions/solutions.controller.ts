@@ -73,6 +73,34 @@ export class SolutionsController {
     );
   }
 
+  @Get('control/:group/:type/:control?')
+  async getCodesByGroupAndTypeControl(
+    @Param('group') group: string,
+    @Param('type') type: string,
+    @Param('control') control?: string,
+  ) {
+    return await this.solutionsService.getCodesByGroupAndType(
+      group,
+      type,
+      control,
+    );
+  }
+
+  @Get('control/:group/:type/:code/:control?')
+  async getSolutionsByGroupTypeAndCodeControl(
+    @Param('group') group: string,
+    @Param('type') type: string,
+    @Param('code') code: string,
+    @Param('control') control?: string,
+  ) {
+    return await this.solutionsService.getSolutionsByGroupTypeAndCode(
+      group,
+      type,
+      code,
+      control,
+    );
+  }
+
   @Get(':id')
   byId(@Param('id') id: string) {
     return this.solutionsService.byId(id);

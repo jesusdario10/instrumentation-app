@@ -10,6 +10,13 @@ import { Model } from 'mongoose';
 import { Solution } from './entities/solution.entity';
 import { InjectModel } from '@nestjs/mongoose';
 
+interface IControl {
+  group: string;
+  type: string;
+  control?: string;
+  code?: string;
+}
+
 @Injectable()
 export class SolutionsService {
   constructor(
@@ -85,19 +92,23 @@ export class SolutionsService {
   }
 
   private async getCodesByGroupAndTypeFromDB(
-    group: string,
-    type: string,
+    query: IControl,
   ): Promise<string[]> {
-    const codes = await this.solutionModel
-      .find({ group, type })
-      .distinct('code')
-      .exec();
+    const codes = await this.solutionModel.find(query).distinct('code').exec();
     return codes;
   }
 
-  async getCodesByGroupAndType(group: string, type: string): Promise<string[]> {
+  async getCodesByGroupAndType(
+    group: string,
+    type: string,
+    control?: string,
+  ): Promise<string[]> {
     try {
-      const codes = await this.getCodesByGroupAndTypeFromDB(group, type);
+      const query: IControl = { group, type };
+      if (control) {
+        query.control = control;
+      }
+      const codes = await this.getCodesByGroupAndTypeFromDB(query);
       return codes;
     } catch (error) {
       throw new InternalServerErrorException(
@@ -120,13 +131,15 @@ export class SolutionsService {
     group: string,
     type: string,
     code: string,
+    control?: string,
   ): Promise<Solution[]> {
     try {
-      const solutions = await this.getSolutionsByGroupTypeAndCodeFromDB(
-        group,
-        type,
-        code,
-      );
+      const query: IControl = { group, type, code };
+      if (control) {
+        query.control = control;
+      }
+
+      const solutions = await this.getSolutionsByGroupTypeAndCodeFromDB(query);
       return solutions;
     } catch (error) {
       throw new InternalServerErrorException(
@@ -136,12 +149,10 @@ export class SolutionsService {
   }
 
   private async getSolutionsByGroupTypeAndCodeFromDB(
-    group: string,
-    type: string,
-    code: string,
+    query: IControl,
   ): Promise<Solution[]> {
     const solutions = await this.solutionModel
-      .find({ group, type, code })
+      .find(query)
       .sort({ order: 1 })
       .exec();
     return solutions;

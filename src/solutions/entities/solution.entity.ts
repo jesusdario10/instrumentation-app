@@ -39,6 +39,8 @@ export class Solution extends Document {
   unitValue: number;
   @Prop({ type: String, default: 'Valves' })
   group: string;
+  @Prop({ type: String, default: '' })
+  control: string;
 }
 
 export const SolutionSchema = SchemaFactory.createForClass(Solution);
