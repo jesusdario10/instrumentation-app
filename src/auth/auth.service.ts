@@ -94,7 +94,7 @@ export class AuthService {
       // Initialize an object to store valid fields to update
       const validUpdateFields: any = {};
 
-      // Copy allowed fields from updateAuthDto to validUpdateFields if they exist in the schema
+      // Copy allowed fields from updateAuthDto to validUpdateFields if they exist in the schema 
       Object.keys(updateAuthDto).forEach((key) => {
         if (key in user.schema.paths) {
           validUpdateFields[key] = updateAuthDto[key];
