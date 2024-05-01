@@ -91,10 +91,10 @@ export class AuthService {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
 
-      // Inicializar un objeto para almacenar los campos válidos que se actualizarán
+      // Initialize an object to store valid fields to update
       const validUpdateFields: any = {};
 
-      // Copiar los campos permitidos de updateAuthDto a validUpdateFields si existen en el esquema
+      // Copy allowed fields from updateAuthDto to validUpdateFields if they exist in the schema
       Object.keys(updateAuthDto).forEach((key) => {
         if (key in user.schema.paths) {
           validUpdateFields[key] = updateAuthDto[key];
