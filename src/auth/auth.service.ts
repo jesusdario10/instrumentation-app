@@ -8,7 +8,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './entities/user.entity';
-import { Model } from 'mongoose';
+import { Model, isValidObjectId } from 'mongoose';
 import * as bcryptjs from 'bcryptjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -82,22 +82,66 @@ export class AuthService {
 
   async update(id: string, updateAuthDto: UpdateUserDto): Promise<User> {
     try {
-      if (updateAuthDto.hasOwnProperty('password')) {
-        updateAuthDto.password = bcryptjs.hashSync(updateAuthDto.password, 10);
+      if (!isValidObjectId(id)) {
+        throw new NotFoundException(`Invalid user ID`);
       }
 
+      const user = await this.userModel.findById(id).exec();
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+
+      // Inicializar un objeto para almacenar los campos válidos que se actualizarán
+      const validUpdateFields: any = {};
+
+      // Copiar los campos permitidos de updateAuthDto a validUpdateFields si existen en el esquema
+      Object.keys(updateAuthDto).forEach((key) => {
+        if (key in user.schema.paths) {
+          validUpdateFields[key] = updateAuthDto[key];
+        }
+      });
+
+      if (
+        'password' in updateAuthDto &&
+        'newPassword' in updateAuthDto &&
+        'confirmPassword' in updateAuthDto
+      ) {
+        if (!bcryptjs.compareSync(updateAuthDto.password, user.password)) {
+          throw new UnauthorizedException('Incorrect previous password');
+        }
+
+        if (updateAuthDto.newPassword !== updateAuthDto.confirmPassword) {
+          throw new BadRequestException(
+            'New password and confirmation do not match',
+          );
+        }
+
+        validUpdateFields.password = bcryptjs.hashSync(
+          updateAuthDto.newPassword,
+          10,
+        );
+
+        // Eliminar campos temporales que no deben guardarse en la base de datos
+        delete updateAuthDto.newPassword;
+        delete updateAuthDto.confirmPassword;
+      }
+
+      // Actualizar el usuario en la base de datos
       const updatedUser = await this.userModel.findByIdAndUpdate(
         id,
-        { $set: updateAuthDto },
+        { $set: validUpdateFields },
         { new: true },
       );
-
       if (!updatedUser) {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
 
       return updatedUser;
     } catch (error) {
+      if (error.status == 401)
+        throw new UnauthorizedException('Incorrect previous password');
+      if (error.status == 400)
+        throw new BadRequestException(`${error.message}`);
       throw new InternalServerErrorException(`Can't update user - Check logs`);
     }
   }
