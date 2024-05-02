@@ -1,0 +1,25 @@
+export const CONTROL_USER = 'control';
+export const NORMAL_USER = 'normal';
+export const DOMAINS_NOT_ALLOWED = [
+  'gmail',
+  'outlook',
+  'yahoo',
+  'icloud',
+  'mail',
+  'hotmail',
+  'msn',
+  'live',
+  'aol',
+  'protonmail',
+  'zoho',
+  'gmx',
+  'web',
+  'yandex',
+  'mail.ru',
+  'libero',
+  't-online',
+  'orange',
+  'comcast',
+  'sbcglobal',
+  'btinternet',
+];

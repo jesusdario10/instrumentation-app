@@ -14,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt.payload';
+import { NORMAL_USER } from '../common/const/const';
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const { email, password } = loginDto;
-    const user = await this.userModel.findOne({ email });
+    const user = await this.userModel.findOne({ email, isActive: true });
     if (!user) throw new UnauthorizedException('Not valid credentials');
     if (!bcryptjs.compareSync(password, user.password))
       throw new UnauthorizedException('Not valid credentials');
@@ -60,8 +61,11 @@ export class AuthService {
     };
   }
 
-  async findAll() {
-    return await this.userModel.find();
+  async findAllAdmin() {
+    return await this.userModel.find({ roles: 'control' });
+  }
+  async findAllNormal() {
+    return await this.userModel.find({ roles: 'normal' });
   }
 
   async findById(id: string) {
@@ -91,45 +95,43 @@ export class AuthService {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
 
-      // Initialize an object to store valid fields to update
-      const validUpdateFields: any = {};
-
-      // Copy allowed fields from updateAuthDto to validUpdateFields if they exist in the schema 
-      Object.keys(updateAuthDto).forEach((key) => {
-        if (key in user.schema.paths) {
-          validUpdateFields[key] = updateAuthDto[key];
-        }
-      });
-
+      // Check if the new password is provided
       if (
-        'password' in updateAuthDto &&
         'newPassword' in updateAuthDto &&
         'confirmPassword' in updateAuthDto
       ) {
-        if (!bcryptjs.compareSync(updateAuthDto.password, user.password)) {
-          throw new UnauthorizedException('Incorrect previous password');
+        // Check if the current password provided matches the password stored in the database
+        if (user.roles.includes(NORMAL_USER)) {
+          if (
+            updateAuthDto?.password &&
+            !bcryptjs.compareSync(updateAuthDto.password, user.password)
+          ) {
+            throw new UnauthorizedException('Current password is incorrect');
+          }
         }
 
-        if (updateAuthDto.newPassword !== updateAuthDto.confirmPassword) {
-          throw new BadRequestException(
-            'New password and confirmation do not match',
-          );
-        }
-
-        validUpdateFields.password = bcryptjs.hashSync(
+        // Hashing of the new password and updating the field in the update object
+        const newPasswordHash = (updateAuthDto.newPassword = bcryptjs.hashSync(
           updateAuthDto.newPassword,
           10,
-        );
+        ));
 
-        // Eliminar campos temporales que no deben guardarse en la base de datos
-        delete updateAuthDto.newPassword;
-        delete updateAuthDto.confirmPassword;
+        // Delete temporary fields that should not be saved in the database
+        updateAuthDto.password = newPasswordHash;
+        delete updateAuthDto?.confirmPassword;
+        delete updateAuthDto?.newPassword;
+        delete updateAuthDto?.email;
+        if (user.roles.includes(NORMAL_USER)) {
+          delete updateAuthDto.email;
+          delete updateAuthDto.roles;
+          delete updateAuthDto.isActive;
+        }
       }
 
-      // Actualizar el usuario en la base de datos
+      // Update user in database
       const updatedUser = await this.userModel.findByIdAndUpdate(
         id,
-        { $set: validUpdateFields },
+        { $set: updateAuthDto },
         { new: true },
       );
       if (!updatedUser) {
@@ -138,8 +140,7 @@ export class AuthService {
 
       return updatedUser;
     } catch (error) {
-      if (error.status == 401)
-        throw new UnauthorizedException('Incorrect previous password');
+      if (error.status == 401) throw new UnauthorizedException('unauthorized ');
       if (error.status == 400)
         throw new BadRequestException(`${error.message}`);
       throw new InternalServerErrorException(`Can't update user - Check logs`);
