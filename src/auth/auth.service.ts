@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt.payload';
 import { NORMAL_USER } from '../common/const/const';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +34,36 @@ export class AuthService {
       });
 
       return await newUser.save();
+    } catch (error) {
+      if (error.code === 11000)
+        throw new BadRequestException(`Data is ready exist`);
+      else
+        throw new InternalServerErrorException(
+          `Can't create field - Check logs`,
+        );
+    }
+  }
+
+  async register(registerUserDto: RegisterUserDto) {
+    try {
+      const { password, ...userData } = registerUserDto;
+
+      delete userData.confirmPassword;
+      const newUser = new this.userModel({
+        password: bcryptjs.hashSync(password, 10),
+        ...userData,
+        roles: [NORMAL_USER],
+      });
+
+      const user = await newUser.save();
+      const token = await this.getJWT({ id: user._id });
+      return {
+        user: {
+          ...user.toJSON(),
+          password: undefined,
+        },
+        token,
+      };
     } catch (error) {
       if (error.code === 11000)
         throw new BadRequestException(`Data is ready exist`);

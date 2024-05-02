@@ -17,8 +17,10 @@ import {
   AdminGuard,
   AuthGuard,
   EmailDomainGuard,
+  PasswordMatchGuard,
   UserIdMatchGuard,
 } from './guards';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +30,12 @@ export class AuthController {
   @UseGuards(EmailDomainGuard)
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
+  }
+
+  @Post('register')
+  @UseGuards(EmailDomainGuard, PasswordMatchGuard)
+  register(@Body() registerUserDto: RegisterUserDto) {
+    return this.authService.register(registerUserDto);
   }
 
   @Post()
