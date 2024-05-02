@@ -5,9 +5,17 @@ import {
   IsOptional,
   IsBoolean,
   MinLength,
+  Matches,
 } from 'class-validator';
 
 export class CreateUserDto {
+  @IsString()
+  @MinLength(6)
+  nit: string;
+
+  @IsString()
+  companyName: string;
+
   @IsEmail()
   email: string;
 
@@ -15,11 +23,15 @@ export class CreateUserDto {
   name: string;
 
   @IsString()
-  @IsOptional()
+  @MinLength(6)
   phoneNumber: string;
 
   @IsString()
-  @MinLength(6)
+  @MinLength(8)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/, {
+    message:
+      'Password must contain at least one lowercase, one uppercase, one number, and one special character',
+  })
   password: string;
 
   @IsBoolean()
