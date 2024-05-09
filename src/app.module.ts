@@ -6,6 +6,7 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { GoogleRecaptchaModule } from '@nestlab/google-recaptcha';
 
 import { QuotationModule } from './quotation/quotation.module';
 import { SolutionsModule } from './solutions/solutions.module';
@@ -20,6 +21,7 @@ import { LaboratoryRecordsModule } from './laboratory-records/laboratory-records
     ConfigModule.forRoot({
       load: [EnvConfiguration],
       validationSchema: JoiValidationSchema,
+      isGlobal: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
@@ -29,12 +31,17 @@ import { LaboratoryRecordsModule } from './laboratory-records/laboratory-records
       transport: {
         host: process.env.HOSTSMTP,
         port: process.env.PORTSMTP,
-        secure: false,
+        secure: true,
         auth: {
           user: process.env.USERSMTP,
           pass: process.env.PASSWORDSMTP,
         },
       },
+    }),
+    GoogleRecaptchaModule.forRoot({
+      secretKey: process.env.RECAPTCHA,
+      response: (req) => req.headers['recaptcha-response-header'],
+      score: 0.5,
     }),
     QuotationModule,
     SolutionsModule,

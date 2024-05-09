@@ -1,4 +1,10 @@
-import { IsEmail, IsString, Matches, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  Matches,
+  MinLength,
+  IsOptional,
+} from 'class-validator';
 
 export class LoginDto {
   @IsEmail()
@@ -11,4 +17,8 @@ export class LoginDto {
       'Password must contain at least one lowercase, one uppercase, one number, and one special character',
   })
   password: string;
+
+  @IsString()
+  @IsOptional()
+  recaptchaToken?: string;
 }

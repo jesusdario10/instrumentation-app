@@ -8,4 +8,6 @@ export const JoiValidationSchema = Joi.object({
   PORTSMTP: Joi.number().default(25),
   USERSMTP: Joi.required(),
   PASSWORDSMTP: Joi.required(),
+  RECAPTCHA: Joi.required(),
+  SKIP_RECAPTCHA: Joi.boolean().required(),
 });

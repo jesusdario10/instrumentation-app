@@ -17,6 +17,10 @@ export class RegisterUserDto extends PartialType(CreateUserDto) {
   })
   confirmPassword: string;
 
+  @IsOptional()
+  @IsString()
+  recaptchaToken?: string;
+
   @Exclude()
   roles: string[];
 }

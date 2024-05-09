@@ -1,7 +1,6 @@
 import {
   IsString,
   IsEmail,
-  IsArray,
   IsOptional,
   IsBoolean,
   MinLength,
@@ -37,8 +36,4 @@ export class CreateUserDto {
   @IsBoolean()
   @IsOptional()
   isActive: boolean;
-
-  @IsArray()
-  @IsOptional()
-  roles: string[];
 }
