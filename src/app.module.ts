@@ -31,7 +31,7 @@ import { LaboratoryRecordsModule } from './laboratory-records/laboratory-records
       transport: {
         host: process.env.HOSTSMTP,
         port: process.env.PORTSMTP,
-        secure: true,
+        secure: false,
         auth: {
           user: process.env.USERSMTP,
           pass: process.env.PASSWORDSMTP,

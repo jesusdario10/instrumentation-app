@@ -168,7 +168,9 @@ export class QuotationService {
         bcc: 'presupuesto@cdisa.co',
       });
     } catch (error) {
-      console.log(error);
+      throw new InternalServerErrorException(
+        'An error occurred in sending the quote',
+      );
     }
   }
 
