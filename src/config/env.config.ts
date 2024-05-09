@@ -7,4 +7,6 @@ export const EnvConfiguration = () => ({
   portsmtp: process.env.PORTSMTP,
   usersmtp: process.env.USERSMTP,
   passwordsmtp: process.env.PASSWORDSMTP,
+  recaptcha: process.env.RECAPTCHA,
+  skip_recaptcha: process.env.SKIP_RECAPTCHA === 'true',
 });

@@ -18,6 +18,7 @@ import {
   AuthGuard,
   EmailDomainGuard,
   PasswordMatchGuard,
+  RecaptchaGuard,
   UserIdMatchGuard,
 } from './guards';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -27,13 +28,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
-  @UseGuards(EmailDomainGuard)
-  login(@Body() loginDto: LoginDto) {
+  @UseGuards(RecaptchaGuard, EmailDomainGuard)
+  async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
   @Post('register')
-  @UseGuards(EmailDomainGuard, PasswordMatchGuard)
+  @UseGuards(RecaptchaGuard, EmailDomainGuard, PasswordMatchGuard)
   register(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
   }

@@ -25,7 +25,7 @@ export class LaboratoryRecordsService {
       return lr;
     } catch (error) {
       if (error.code === 11000)
-        throw new BadRequestException(`Data is ready exist`);
+        throw new BadRequestException(`An error has occurred`);
       else
         throw new InternalServerErrorException(
           `Can't create field - Check logs`,

@@ -10,18 +10,21 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from './entities/user.entity';
 import { Model, isValidObjectId } from 'mongoose';
 import * as bcryptjs from 'bcryptjs';
+import { HttpService } from '@nestjs/axios';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt.payload';
 import { NORMAL_USER } from '../common/const/const';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
+    private httpService: HttpService,
   ) {}
 
   async create(createAuthDto: CreateUserDto): Promise<User> {
@@ -31,12 +34,13 @@ export class AuthService {
       const newUser = new this.userModel({
         password: bcryptjs.hashSync(password, 10),
         ...userData,
+        roles: ['control'],
       });
 
       return await newUser.save();
     } catch (error) {
       if (error.code === 11000)
-        throw new BadRequestException(`Data is ready exist`);
+        throw new BadRequestException(`An error has occurred`);
       else
         throw new InternalServerErrorException(
           `Can't create field - Check logs`,
@@ -49,6 +53,8 @@ export class AuthService {
       const { password, ...userData } = registerUserDto;
 
       delete userData.confirmPassword;
+      delete userData.recaptchaToken;
+
       const newUser = new this.userModel({
         password: bcryptjs.hashSync(password, 10),
         ...userData,
@@ -66,7 +72,7 @@ export class AuthService {
       };
     } catch (error) {
       if (error.code === 11000)
-        throw new BadRequestException(`Data is ready exist`);
+        throw new BadRequestException(`An error has occurred`);
       else
         throw new InternalServerErrorException(
           `Can't create field - Check logs`,
@@ -154,7 +160,6 @@ export class AuthService {
         delete updateAuthDto?.email;
         if (user.roles.includes(NORMAL_USER)) {
           delete updateAuthDto.email;
-          delete updateAuthDto.roles;
           delete updateAuthDto.isActive;
         }
       }
@@ -212,5 +217,30 @@ export class AuthService {
       user,
       token,
     };
+  }
+
+  async validateRecaptcha(token: string): Promise<boolean> {
+    const secretKey = process.env.RECAPTCHA;
+    const recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(recaptchaUrl, null, {
+          params: {
+            secret: secretKey,
+            response: token,
+          },
+        }),
+      );
+
+      if (!response.data.success) {
+        throw new Error('Recaptcha validation failed');
+      }
+
+      return response.data.success;
+    } catch (error) {
+      console.error('Error validating recaptcha', error);
+      return false;
+    }
   }
 }
