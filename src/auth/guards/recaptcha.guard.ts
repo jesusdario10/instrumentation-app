@@ -18,6 +18,8 @@ export class RecaptchaGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const recaptchaToken = request.body.recaptchaToken;
 
+    console.log(recaptchaToken);
+
     const skipRecaptcha = this.configService.get<boolean>('SKIP_RECAPTCHA');
     if (skipRecaptcha) {
       return true;

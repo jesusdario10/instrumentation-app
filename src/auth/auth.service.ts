@@ -132,7 +132,7 @@ export class AuthService {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
 
-      // Check if the new password is provided
+      // Check if the new password is provided --
       if (
         'newPassword' in updateAuthDto &&
         'confirmPassword' in updateAuthDto

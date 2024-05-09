@@ -20,5 +20,5 @@ export class LoginDto {
 
   @IsString()
   @IsOptional()
-  recaptchaToken: string;
+  recaptchaToken?: string;
 }
