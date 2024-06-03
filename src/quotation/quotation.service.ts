@@ -124,8 +124,8 @@ export class QuotationService {
           <div class="container">
             <img src="cid:header" style="width: 100%; height: auto;" />
             <div class="content">
-              <h1>SU NÚMERO DE COTIZACIÓN ES: </h1>
-              <p class="consecutive">0${quotation.consecutive}</p>
+              <h3>SU NÚMERO DE COTIZACIÓN ES: </h3>
+              <span class="consecutive">0${quotation.consecutive}</span>
             </div>
             <table>
               <thead>
