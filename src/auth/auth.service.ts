@@ -62,7 +62,7 @@ export class AuthService {
       });
 
       const user = await newUser.save();
-      const token = await this.getJWT({ id: user._id });
+      const token = await this.getJWT({ id: user._id.toString() });
       return {
         user: {
           ...user.toJSON(),
@@ -87,7 +87,7 @@ export class AuthService {
     if (!bcryptjs.compareSync(password, user.password))
       throw new UnauthorizedException('Not valid credentials');
 
-    const token = await this.getJWT({ id: user._id });
+    const token = await this.getJWT({ id: user._id.toString() });
 
     return {
       user: {
